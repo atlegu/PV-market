@@ -35,7 +35,7 @@ export default function AddPolePage() {
       setTimeout(() => {
         navigate('/my-poles');
       }, 2000);
-      setError((error as Error).message || 'Kunne ikke registrere staven. Prøv igjen.');
+      setError((error as any).message || 'Kunne ikke registrere staven. Prøv igjen.');
     } finally {
       setIsLoading(false);
     }
