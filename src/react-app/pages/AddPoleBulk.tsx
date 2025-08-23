@@ -3,8 +3,7 @@ import { useSupabaseAuth } from '@/react-app/contexts/SupabaseAuthContext';
 import { polesService } from '@/services/poles.service';
 import { useNavigate, Link } from 'react-router-dom';
 import { Plus, Save, Trash2, ListPlus } from 'lucide-react';
-import { POLE_BRANDS, MUNICIPALITIES } from '@/shared/types';
-import CompactSearchableSelect from '@/react-app/components/CompactSearchableSelect';
+import { POLE_BRANDS } from '@/shared/types';
 import { getMunicipalityFromPostalCode } from '@/shared/postalCodes';
 
 interface PoleRow {

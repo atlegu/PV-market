@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useSupabaseAuth } from '@/react-app/contexts/SupabaseAuthContext';
 import { polesService } from '@/services/poles.service';
 import { supabase } from '@/lib/supabase';
-import { ArrowLeft, MapPin, Star, Send, User, Mail, Building, Edit } from 'lucide-react';
+import { ArrowLeft, MapPin, Star, User, Mail, Building, Edit } from 'lucide-react';
 import type { Pole } from '@/shared/types';
 
 export default function PoleDetailPage() {

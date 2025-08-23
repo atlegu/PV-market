@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSupabaseAuth } from '@/react-app/contexts/SupabaseAuthContext';
 import { polesService } from '@/services/poles.service';
 import { useNavigate, Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
-import { POLE_BRANDS, MUNICIPALITIES, CreatePole } from '@/shared/types';
+import { POLE_BRANDS, CreatePole } from '@/shared/types';
 import SearchableSelect from '@/react-app/components/SearchableSelect';
 import { getMunicipalityFromPostalCode } from '@/shared/postalCodes';
 
@@ -35,7 +35,7 @@ export default function AddPolePage() {
       setTimeout(() => {
         navigate('/my-poles');
       }, 2000);
-      setError(err.message || 'Kunne ikke registrere staven. Prøv igjen.');
+      setError((error as Error).message || 'Kunne ikke registrere staven. Prøv igjen.');
     } finally {
       setIsLoading(false);
     }
