@@ -19,12 +19,8 @@ export const polesService = {
     let query = supabase
       .from('poles')
       .select('*')
+      .in('status', ['available', 'for_sale']) // Always filter to only show available or for sale poles
       .order('length_cm', { ascending: true });
-    
-    // Only filter by status if explicitly provided
-    if (filters?.status && filters.status.length > 0) {
-      query = query.in('status', filters.status);
-    }
 
     if (filters?.length_min) {
       query = query.gte('length_cm', filters.length_min);

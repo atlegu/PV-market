@@ -81,7 +81,7 @@ export default function HomePage() {
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
           Norges største plattform for deling og salg av staver. 
-          Finn din neste stav eller gi din gamle stav nytt liv.
+          Søk blant staver som er tilgjengelige for leie eller kjøp.
         </p>
         
         {/* Stats */}

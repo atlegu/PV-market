@@ -119,42 +119,6 @@ export default function SearchFilters({
         </div>
       </div>
 
-      {/* Status Filter */}
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Status
-        </label>
-        <div className="flex flex-wrap gap-2">
-          {[
-            { value: 'available', label: 'Tilgjengelig', color: 'bg-green-100 text-green-800 border-green-300' },
-            { value: 'for_sale', label: 'Til salgs', color: 'bg-blue-100 text-blue-800 border-blue-300' },
-            { value: 'rented', label: 'Utleid', color: 'bg-yellow-100 text-yellow-800 border-yellow-300' },
-            { value: 'reserved', label: 'Reservert', color: 'bg-orange-100 text-orange-800 border-orange-300' },
-            { value: 'unavailable', label: 'I bruk', color: 'bg-red-100 text-red-800 border-red-300' },
-          ].map((status) => {
-            const isSelected = filters.status?.includes(status.value);
-            return (
-              <button
-                key={status.value}
-                onClick={() => {
-                  const currentStatus = filters.status || [];
-                  if (isSelected) {
-                    updateFilter('status', currentStatus.filter(s => s !== status.value));
-                  } else {
-                    updateFilter('status', [...currentStatus, status.value]);
-                  }
-                }}
-                className={`px-3 py-1 rounded-full text-sm font-medium border transition-all ${
-                  isSelected ? status.color : 'bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200'
-                }`}
-              >
-                {status.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Advanced Filters */}
       <div className="flex items-center justify-between mb-4">
         <button

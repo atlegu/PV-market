@@ -71,7 +71,6 @@ export const SearchFiltersSchema = z.object({
   postal_code: z.string().optional(),
   radius_km: z.number().optional(),
   brand: z.string().optional(),
-  status: z.array(z.string()).optional(),
   condition_min: z.number().optional(),
 });
 
