@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100">
+  <rect width="200" height="100" fill="#1e1b4b"/>
+  <text x="100" y="40" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#a78bfa" text-anchor="middle" dominant-baseline="middle">ESSX</text>
+  <text x="100" y="65" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#c4b5fd" text-anchor="middle" dominant-baseline="middle">RECOIL</text>
+</svg>

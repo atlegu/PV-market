@@ -8,18 +8,47 @@ interface PoleCardProps {
 
 const getBrandLogoPath = (brand: string): string | null => {
   const brandMap: Record<string, string> = {
-    'UCS Spirit': '/brand-logos/ucs-spirit.svg',
-    'UCS': '/brand-logos/ucs-spirit.svg',
-    'Pacer': '/brand-logos/pacer.svg',
-    'Pacer One': '/brand-logos/pacer.svg',
-    'Pacer FX': '/brand-logos/pacer.svg',
+    // Altius variants
+    'Altius Carbon Elite': '/brand-logos/altius-carbon-elite.svg',
+    'Altius Fiberglass': '/brand-logos/altius-fiberglass.svg',
+    'Altius Suhr Adrenaline': '/brand-logos/altius-suhr-adrenaline.svg',
+    'Altius': '/brand-logos/altius.svg',
+    
+    // Essx variants
     'Essx': '/brand-logos/essx.svg',
+    'Essx Launch': '/brand-logos/essx-launch.svg',
+    'Essx Power X': '/brand-logos/essx-power-x.svg',
+    'Essx Recoil': '/brand-logos/essx-recoil.svg',
+    'Essx Recoil Advanced': '/brand-logos/essx-recoil-advanced.svg',
+    
+    // Fibersport variants
+    'Fibersport Carbon': '/brand-logos/fibersport-carbon.svg',
+    'Fibersport Carbon +': '/brand-logos/fibersport-carbon-plus.svg',
+    'Fibersport Non-Carbon': '/brand-logos/fibersport-non-carbon.svg',
+    
+    // Nordic variants
     'Nordic': '/brand-logos/nordic.svg',
+    'Nordic Bifrost Glassfiber': '/brand-logos/nordic-bifrost-glassfiber.svg',
+    'Nordic Bifrost Hybrid': '/brand-logos/nordic-bifrost-hybrid.svg',
+    'Nordic Evolution': '/brand-logos/nordic-evolution.svg',
+    'Nordic HiFly': '/brand-logos/nordic-hifly.svg',
     'Nordic Spirit': '/brand-logos/nordic.svg',
     'Nordic Valhalla': '/brand-logos/nordic.svg',
+    
+    // Pacer variants
+    'Pacer': '/brand-logos/pacer.svg',
+    'Pacer Carbon FX': '/brand-logos/pacer-carbon-fx.svg',
+    'Pacer One': '/brand-logos/pacer-one.svg',
+    'Pacer Composite': '/brand-logos/pacer-composite.svg',
+    'Pacer Mystic': '/brand-logos/pacer-mystic.svg',
+    'Pacer FX': '/brand-logos/pacer.svg',
+    
+    // Others
+    'UCS Spirit': '/brand-logos/ucs-spirit.svg',
+    'UCS': '/brand-logos/ucs-spirit.svg',
     'Gill': '/brand-logos/gill.svg',
     'Gill Pacer': '/brand-logos/gill.svg',
-    'Altius': '/brand-logos/altius.svg',
+    'Annen': '/brand-logos/annen.svg',
   };
   
   return brandMap[brand] || null;

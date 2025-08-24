@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100">
+  <rect width="200" height="100" fill="#1e3a8a"/>
+  <text x="100" y="40" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">NORDIC</text>
+  <text x="100" y="65" font-family="Arial, sans-serif" font-size="14" font-weight="300" letter-spacing="2" fill="#93c5fd" text-anchor="middle" dominant-baseline="middle">EVOLUTION</text>
+</svg>

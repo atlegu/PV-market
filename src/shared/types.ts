@@ -129,6 +129,9 @@ export const POLE_BRANDS = [
   'Nordic HiFly',
   'Pacer',
   'Pacer Carbon FX',
+  'Pacer One',
+  'Pacer Composite',
+  'Pacer Mystic',
   'Annen'
 ] as const;
 
