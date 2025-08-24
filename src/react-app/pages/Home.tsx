@@ -186,14 +186,14 @@ export default function HomePage() {
             </h3>
             <p className="text-gray-600 mb-6 max-w-md mx-auto">
               Bruk søkefilteret ovenfor for å finne staver som passer dine behov, 
-              eller klikk på "Vis alle staver" for å se alle tilgjengelige staver.
+              eller klikk på "Vis alle tilgjengelige staver" for å se alle tilgjengelige staver.
             </p>
             <button
               onClick={searchPoles}
               className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 inline-flex items-center space-x-2"
             >
               <Search className="w-5 h-5" />
-              <span>Vis alle staver</span>
+              <span>Vis alle tilgjengelige staver</span>
             </button>
           </div>
         )}
