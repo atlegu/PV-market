@@ -4,7 +4,7 @@ import { polesService } from '@/services/poles.service';
 import { Link, useNavigate } from 'react-router-dom';
 import { Plus, Package, Star, MapPin, Grid3x3, List, Edit2 } from 'lucide-react';
 import type { Pole } from '@/shared/types';
-import { getBrandLogoUrl, getBrandColor } from '@/react-app/utils/brandLogos';
+import { getBrandColor } from '@/react-app/utils/brandLogos';
 
 export default function MyPolesPage() {
   const { user, loading: authLoading } = useSupabaseAuth();

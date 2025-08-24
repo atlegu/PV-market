@@ -17,7 +17,7 @@ export default function TestSupabase() {
       console.log('Session check:', sessionData);
 
       // Test 2: Try to query poles table (should work even without auth for public poles)
-      const { data: poles, error: polesError } = await supabase
+      const { error: polesError } = await supabase
         .from('poles')
         .select('count')
         .limit(1);
@@ -27,7 +27,7 @@ export default function TestSupabase() {
       }
 
       // Test 3: Check which tables exist
-      const { data: tablesData, error: tablesError } = await supabase
+      const { error: tablesError } = await supabase
         .from('poles')
         .select('*')
         .limit(0);

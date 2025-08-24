@@ -1,7 +1,6 @@
 import { supabase } from '@/lib/supabase';
 import type { Database } from '@/lib/supabase';
 
-type Pole = Database['public']['Tables']['poles']['Row'];
 type CreatePole = Database['public']['Tables']['poles']['Insert'];
 type UpdatePole = Database['public']['Tables']['poles']['Update'];
 
@@ -15,12 +14,17 @@ export const polesService = {
     municipality?: string;
     brand?: string;
     condition_min?: number;
+    status?: string[];
   }) {
     let query = supabase
       .from('poles')
       .select('*')
-      .in('status', ['available', 'for_sale'])
       .order('length_cm', { ascending: true });
+    
+    // Only filter by status if explicitly provided
+    if (filters?.status && filters.status.length > 0) {
+      query = query.in('status', filters.status);
+    }
 
     if (filters?.length_min) {
       query = query.gte('length_cm', filters.length_min);

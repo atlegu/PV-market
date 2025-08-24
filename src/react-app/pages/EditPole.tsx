@@ -3,7 +3,7 @@ import { useSupabaseAuth } from '@/react-app/contexts/SupabaseAuthContext';
 import { polesService } from '@/services/poles.service';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Save, ArrowLeft, Trash2 } from 'lucide-react';
-import { POLE_BRANDS, MUNICIPALITIES, CreatePole, Pole } from '@/shared/types';
+import { POLE_BRANDS, MUNICIPALITIES, CreatePole } from '@/shared/types';
 import SearchableSelect from '@/react-app/components/SearchableSelect';
 
 export default function EditPolePage() {

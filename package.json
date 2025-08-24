@@ -35,6 +35,7 @@
     "globals": "15.15.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
+    "terser": "^5.43.1",
     "typescript": "5.8.3",
     "typescript-eslint": "8.31.0",
     "vite": "6.3.2",
@@ -42,9 +43,14 @@
   },
   "scripts": {
     "build": "tsc -b && vite build",
+    "build:vercel": "tsc -b && vite build --config vite.config.vercel.ts",
+    "build:godaddy": "tsc -b && vite build --config vite.config.godaddy.ts",
+    "deploy:godaddy": "./deploy-godaddy.sh",
     "cf-typegen": "wrangler types",
     "check": "tsc && vite build && wrangler deploy --dry-run",
     "dev": "vite",
-    "lint": "eslint ."
+    "dev:vercel": "vite --config vite.config.vercel.ts",
+    "lint": "eslint .",
+    "preview": "vite preview"
   }
 }

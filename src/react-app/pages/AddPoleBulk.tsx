@@ -275,7 +275,7 @@ export default function AddPoleBulkPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {poles.map((pole, index) => (
+                {poles.map((pole) => (
                   <tr key={pole.id} className="group">
                     <td className="py-2">
                       <input

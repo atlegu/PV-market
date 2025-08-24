@@ -107,13 +107,13 @@ export default function ProfilePage() {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-4">
             <img
-              src={(user as any)?.google_user_data?.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.email)}&background=3b82f6&color=ffffff`}
+              src={(user as any)?.google_user_data?.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.email || '')}&background=3b82f6&color=ffffff`}
               alt="Profile"
               className="w-16 h-16 rounded-full ring-4 ring-blue-500/20"
             />
             <div>
               <h1 className="text-2xl font-bold text-gray-900">
-                {profile?.name || (user as any)?.google_user_data?.name || user.name || 'Din profil'}
+                {profile?.name || (user as any)?.google_user_data?.name || (user as any)?.name || 'Din profil'}
               </h1>
               <p className="text-gray-600">{user.email}</p>
             </div>

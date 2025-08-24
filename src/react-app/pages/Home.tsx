@@ -41,10 +41,16 @@ export default function HomePage() {
   
   const getTotalPoleCount = async () => {
     try {
-      const { count } = await supabase
-        .from('poles')
-        .select('*', { count: 'exact', head: true });
-      setTotalPoles(count || 0);
+      // Use the database function that bypasses RLS to get true total
+      const { data, error } = await supabase
+        .rpc('get_total_pole_count');
+      
+      if (error) {
+        console.error('Error fetching total count:', error);
+      } else {
+        console.log('Total poles count from function:', data);
+        setTotalPoles(data || 0);
+      }
     } catch (error) {
       console.error('Error fetching total count:', error);
     }
@@ -52,10 +58,15 @@ export default function HomePage() {
 
   const getTotalUserCount = async () => {
     try {
-      const { count } = await supabase
-        .from('user_profiles')
-        .select('*', { count: 'exact', head: true });
-      setTotalUsers(count || 0);
+      // Use the database function that bypasses RLS to get true total
+      const { data, error } = await supabase
+        .rpc('get_total_user_count');
+      
+      if (error) {
+        console.error('Error fetching user count:', error);
+      } else {
+        setTotalUsers(data || 0);
+      }
     } catch (error) {
       console.error('Error fetching user count:', error);
     }
