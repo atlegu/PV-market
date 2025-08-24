@@ -11,6 +11,7 @@ import EditPolePage from "@/react-app/pages/EditPole";
 import MyPolesPage from "@/react-app/pages/MyPoles";
 import PoleDetailPage from "@/react-app/pages/PoleDetail";
 import ProfilePage from "@/react-app/pages/Profile";
+import AboutPage from "@/react-app/pages/About";
 import TestSupabase from "@/react-app/pages/TestSupabase";
 import TestRoute from "@/react-app/pages/TestRoute";
 
@@ -30,6 +31,7 @@ export default function App() {
               <Route path="/my-poles" element={<MyPolesPage />} />
               <Route path="/poles/:id" element={<PoleDetailPage />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/about" element={<AboutPage />} />
               <Route path="/test-supabase" element={<TestSupabase />} />
               <Route path="/test-route" element={<TestRoute />} />
             </Routes>

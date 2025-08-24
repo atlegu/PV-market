@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSupabaseAuth } from '@/react-app/contexts/SupabaseAuthContext';
-import { Menu, X, Search, Plus, User, LogOut } from 'lucide-react';
+import { Menu, X, Search, Plus, User, LogOut, Info } from 'lucide-react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -12,6 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { name: 'Søk', href: '/', icon: Search },
     { name: 'Legg til stav', href: '/add-pole', icon: Plus },
     { name: 'Mine staver', href: '/my-poles', icon: User },
+    { name: 'Om tjenesten', href: '/about', icon: Info },
   ];
 
   const isActive = (path: string) => location.pathname === path;
