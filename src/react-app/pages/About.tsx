@@ -3,7 +3,7 @@ import { ArrowLeft, Heart, Users, Target, Info } from 'lucide-react';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-orange-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back button */}
         <Link 
@@ -16,7 +16,7 @@ export default function AboutPage() {
 
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-900 to-orange-600 bg-clip-text text-transparent mb-4">
             Om tjenesten
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -44,7 +44,7 @@ export default function AboutPage() {
             {/* How it works section */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <Info className="w-6 h-6 mr-2 text-blue-600" />
+                <Info className="w-6 h-6 mr-2 text-orange-600" />
                 Hvordan fungerer det?
               </h2>
               
@@ -62,7 +62,7 @@ export default function AboutPage() {
                   </ul>
                 </div>
 
-                <div className="bg-green-50 rounded-lg p-6">
+                <div className="bg-orange-50 rounded-lg p-6">
                   <h3 className="font-bold text-gray-900 mb-2">2. Søk etter staver</h3>
                   <p className="text-gray-700 mb-2">
                     Som utøver eller trener kan du søke etter eksakte modeller, lengder og stivheter.
@@ -72,7 +72,7 @@ export default function AboutPage() {
                   </p>
                 </div>
 
-                <div className="bg-purple-50 rounded-lg p-6">
+                <div className="bg-indigo-50 rounded-lg p-6">
                   <h3 className="font-bold text-gray-900 mb-2">3. Avtal direkte</h3>
                   <p className="text-gray-700">
                     All videre kommunikasjon om lån, leie eller kjøp skjer direkte mellom stavens eier og den som ønsker staven. Plattformen legger bare til rette for at dere finner hverandre.
@@ -95,33 +95,33 @@ export default function AboutPage() {
             {/* Why is this important section */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                <Target className="w-6 h-6 mr-2 text-green-600" />
+                <Target className="w-6 h-6 mr-2 text-orange-600" />
                 Hvorfor er dette viktig?
               </h2>
               
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="border-l-4 border-blue-600 pl-4">
+                <div className="border-l-4 border-blue-900 pl-4">
                   <h3 className="font-bold text-gray-900 mb-2">Bedre ressursbruk</h3>
                   <p className="text-gray-700">
                     I stedet for at staver ligger ubrukt, kan de komme nye utøvere til gode.
                   </p>
                 </div>
                 
-                <div className="border-l-4 border-green-600 pl-4">
+                <div className="border-l-4 border-orange-600 pl-4">
                   <h3 className="font-bold text-gray-900 mb-2">Støtte til klubber og utøvere</h3>
                   <p className="text-gray-700">
                     Klubber slipper å bære hele kostnaden alene, og enkeltutøvere kan lettere få tak i riktig stav når de trenger det.
                   </p>
                 </div>
                 
-                <div className="border-l-4 border-purple-600 pl-4">
+                <div className="border-l-4 border-indigo-600 pl-4">
                   <h3 className="font-bold text-gray-900 mb-2">Flere og bedre stavhoppere i Norge</h3>
                   <p className="text-gray-700">
                     Tilgang til riktig utstyr er en forutsetning for å utvikle seg og lykkes i sporten.
                   </p>
                 </div>
                 
-                <div className="border-l-4 border-pink-600 pl-4">
+                <div className="border-l-4 border-orange-500 pl-4">
                   <h3 className="font-bold text-gray-900 mb-2">Fellesskap og deling</h3>
                   <p className="text-gray-700">
                     Ved å hjelpe hverandre, bygger vi et sterkere stavhoppmiljø.
@@ -131,7 +131,7 @@ export default function AboutPage() {
             </div>
 
             {/* Vision section */}
-            <div className="bg-gradient-to-r from-blue-100 to-green-100 rounded-xl p-8">
+            <div className="bg-gradient-to-r from-blue-100 to-orange-100 rounded-xl p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center justify-center">
                 <Heart className="w-6 h-6 mr-2 text-red-500" />
                 Vår visjon
@@ -156,7 +156,7 @@ export default function AboutPage() {
         <div className="text-center">
           <Link 
             to="/" 
-            className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 inline-flex items-center space-x-2"
+            className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-8 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 inline-flex items-center space-x-2"
           >
             <Users className="w-5 h-5" />
             <span>Start å utforske staver</span>

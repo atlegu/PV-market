@@ -106,7 +106,7 @@ export default function PoleCard({ pole }: PoleCardProps) {
       case 'available':
         return 'bg-green-100 text-green-800';
       case 'for_sale':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-orange-100 text-orange-800';
       case 'rented':
         return 'bg-yellow-100 text-yellow-800';
       case 'reserved':
@@ -196,7 +196,7 @@ export default function PoleCard({ pole }: PoleCardProps) {
             </h3>
             <p className="text-sm text-gray-600 font-medium">{pole.brand}</p>
             {pole.flex_rating && (
-              <p className="text-sm text-blue-600 font-semibold mt-1">
+              <p className="text-sm text-orange-600 font-semibold mt-1">
                 Flex: {pole.flex_rating}
               </p>
             )}
@@ -241,7 +241,7 @@ export default function PoleCard({ pole }: PoleCardProps) {
                 </p>
               )}
               {pole.price_sale && (
-                <p className="text-sm font-medium text-blue-600">
+                <p className="text-sm font-medium text-orange-600">
                   {formatPrice(pole.price_sale, 'sale')}
                 </p>
               )}
@@ -252,7 +252,7 @@ export default function PoleCard({ pole }: PoleCardProps) {
             <Link
               to={`/poles/${pole.id}`}
               onClick={() => console.log('Link clicked, navigating to:', `/poles/${pole.id}`)}
-              className="inline-block bg-gradient-to-r from-blue-600 to-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105">
+              className="inline-block bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700">
               Se detaljer
             </Link>
           </div>

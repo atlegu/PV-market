@@ -338,7 +338,7 @@ export default function MyPolesPage() {
               onClick={() => setViewMode('grid')}
               className={`px-3 py-1.5 rounded-md flex items-center space-x-1 transition-all ${
                 viewMode === 'grid'
-                  ? 'bg-white shadow-sm text-blue-600'
+                  ? 'bg-white shadow-sm text-orange-600'
                   : 'text-gray-600 hover:text-gray-800'
               }`}
               title="Kortvisning"
@@ -350,7 +350,7 @@ export default function MyPolesPage() {
               onClick={() => setViewMode('list')}
               className={`px-3 py-1.5 rounded-md flex items-center space-x-1 transition-all ${
                 viewMode === 'list'
-                  ? 'bg-white shadow-sm text-blue-600'
+                  ? 'bg-white shadow-sm text-orange-600'
                   : 'text-gray-600 hover:text-gray-800'
               }`}
               title="Listevisning"
@@ -361,7 +361,7 @@ export default function MyPolesPage() {
           </div>
           <Link
             to="/add-pole"
-            className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
+            className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 flex items-center space-x-2"
           >
             <Plus className="w-5 h-5" />
             <span>Legg til stav</span>
@@ -577,7 +577,7 @@ export default function MyPolesPage() {
           </p>
           <Link
             to="/add-pole"
-            className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 inline-flex items-center space-x-2"
+            className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 inline-flex items-center space-x-2"
           >
             <Plus className="w-5 h-5" />
             <span>Legg til første stav</span>
@@ -596,7 +596,7 @@ export default function MyPolesPage() {
           </p>
           <button
             onClick={clearFilters}
-            className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+            className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700"
           >
             Nullstill filtre
           </button>
@@ -652,7 +652,7 @@ export default function MyPolesPage() {
                     </h3>
                     <p className="text-sm text-gray-600 font-medium">{pole.brand}</p>
                     {pole.flex_rating && (
-                      <p className="text-sm text-blue-600 font-semibold mt-1">
+                      <p className="text-sm text-orange-600 font-semibold mt-1">
                         Flex: {pole.flex_rating}
                       </p>
                     )}
@@ -684,7 +684,7 @@ export default function MyPolesPage() {
                     </p>
                   )}
                   {pole.price_sale && (
-                    <p className="text-sm font-medium text-blue-600">
+                    <p className="text-sm font-medium text-orange-600">
                       {pole.price_sale} kr
                     </p>
                   )}
@@ -703,7 +703,7 @@ export default function MyPolesPage() {
                   </Link>
                   <Link
                     to={`/edit-pole/${pole.id}`}
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-green-600 text-white py-2 px-3 rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200 text-center"
+                    className="flex-1 bg-gradient-to-r from-blue-900 to-indigo-800 text-white py-2 px-3 rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200 hover:from-blue-800 hover:to-indigo-700 text-center"
                   >
                     Rediger
                   </Link>
@@ -781,7 +781,7 @@ export default function MyPolesPage() {
                         </Link>
                         <Link
                           to={`/edit-pole/${pole.id}`}
-                          className="text-blue-600 hover:text-blue-900"
+                          className="text-orange-600 hover:text-orange-700"
                           title="Rediger"
                         >
                           <Edit2 className="w-5 h-5" />

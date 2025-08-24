@@ -18,17 +18,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-orange-50">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+      <header className="bg-white/90 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-green-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-900 to-indigo-800 rounded-lg flex items-center justify-center shadow-md">
                 <span className="text-white font-bold text-sm">PV</span>
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-900 to-orange-600 bg-clip-text text-transparent">
                 PV Market
               </span>
             </Link>
@@ -43,8 +43,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     to={item.href}
                     className={`px-4 py-2 rounded-lg flex items-center space-x-2 transition-all duration-200 ${
                       isActive(item.href)
-                        ? 'bg-blue-100 text-blue-700 shadow-sm'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                        ? 'bg-orange-100 text-orange-700 shadow-sm font-semibold'
+                        : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -85,7 +85,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               ) : (
                 <Link
                   to="/login"
-                  className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-4 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+                  className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-4 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700"
                 >
                   Logg inn
                 </Link>

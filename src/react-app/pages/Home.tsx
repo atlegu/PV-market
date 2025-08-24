@@ -76,7 +76,7 @@ export default function HomePage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Hero Section */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent mb-6">
+        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-900 to-orange-600 bg-clip-text text-transparent mb-6">
           PV Market
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
@@ -88,14 +88,14 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 max-w-2xl mx-auto">
           <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100">
             <div className="flex items-center justify-center space-x-2 mb-2">
-              <TrendingUp className="w-6 h-6 text-blue-600" />
+              <TrendingUp className="w-6 h-6 text-blue-900" />
               <span className="text-2xl font-bold text-gray-900">{totalPoles}</span>
             </div>
             <p className="text-gray-600">Staver registrert</p>
           </div>
           <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100">
             <div className="flex items-center justify-center space-x-2 mb-2">
-              <Users className="w-6 h-6 text-green-600" />
+              <Users className="w-6 h-6 text-orange-600" />
               <span className="text-2xl font-bold text-gray-900">{totalUsers}</span>
             </div>
             <p className="text-gray-600">Registrerte brukere</p>
@@ -113,9 +113,9 @@ export default function HomePage() {
       />
 
       {/* Pole Advisor CTA */}
-      <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl p-6 mb-8">
+      <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-6 mb-8">
         <div className="flex items-center justify-center space-x-2 mb-4">
-          <Lightbulb className="w-6 h-6 text-purple-600" />
+          <Lightbulb className="w-6 h-6 text-orange-600" />
           <h2 className="text-xl font-bold text-gray-900">Usikker på hvilken stav du trenger?</h2>
         </div>
         <p className="text-gray-600 mb-4 text-center">
@@ -124,7 +124,7 @@ export default function HomePage() {
         <div className="flex justify-center">
           <button
             onClick={() => setShowAdvisor(true)}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+            className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700"
           >
             Bruk stavveileder
           </button>
@@ -171,15 +171,15 @@ export default function HomePage() {
             </p>
             <button
               onClick={() => setFilters({})}
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-orange-600 hover:text-orange-700 font-medium"
             >
               Nullstill søk
             </button>
           </div>
         ) : (
           <div className="text-center py-12">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Compass className="w-8 h-8 text-blue-600" />
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Compass className="w-8 h-8 text-blue-900" />
             </div>
             <h3 className="text-xl font-medium text-gray-900 mb-2">
               Velkommen til PV Market
@@ -190,7 +190,7 @@ export default function HomePage() {
             </p>
             <button
               onClick={searchPoles}
-              className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 inline-flex items-center space-x-2"
+              className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 inline-flex items-center space-x-2"
             >
               <Search className="w-5 h-5" />
               <span>Vis alle staver</span>
@@ -201,16 +201,16 @@ export default function HomePage() {
 
       {/* Welcome Section for Non-Users */}
       {!user && (
-        <div className="bg-gradient-to-r from-blue-600 to-green-600 rounded-xl p-8 text-white text-center">
+        <div className="bg-gradient-to-r from-blue-900 to-indigo-800 rounded-xl p-8 text-white text-center">
           <h2 className="text-2xl font-bold mb-4">
             Bli med i PV Market-fellesskapet
           </h2>
-          <p className="text-blue-100 mb-6">
+          <p className="text-blue-50 mb-6">
             Registrer deg for å legge ut dine egne staver eller kontakte eiere av staver du er interessert i.
           </p>
           <a
             href="/login"
-            className="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 inline-block"
+            className="bg-white text-blue-900 px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 inline-block hover:bg-orange-50"
           >
             Kom i gang
           </a>

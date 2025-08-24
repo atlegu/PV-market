@@ -35,7 +35,7 @@ export default function SearchFilters({
         <button
           onClick={onSearch}
           disabled={isLoading}
-          className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+          className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-8 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
         >
           <Search className="w-5 h-5" />
           <span>{isLoading ? 'Søker...' : 'Søk etter staver'}</span>
@@ -54,7 +54,7 @@ export default function SearchFilters({
               placeholder="Fra"
               value={filters.length_min || ''}
               onChange={(e) => updateFilter('length_min', e.target.value ? Number(e.target.value) : undefined)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
               min="250"
               max="520"
               step="1"
@@ -64,7 +64,7 @@ export default function SearchFilters({
               placeholder="Til"
               value={filters.length_max || ''}
               onChange={(e) => updateFilter('length_max', e.target.value ? Number(e.target.value) : undefined)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
               min="250"
               max="520"
               step="1"
@@ -82,7 +82,7 @@ export default function SearchFilters({
               placeholder="Fra"
               value={filters.weight_min || ''}
               onChange={(e) => updateFilter('weight_min', e.target.value ? Number(e.target.value) : undefined)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
               min="50"
               max="210"
               step="1"
@@ -92,7 +92,7 @@ export default function SearchFilters({
               placeholder="Til"
               value={filters.weight_max || ''}
               onChange={(e) => updateFilter('weight_max', e.target.value ? Number(e.target.value) : undefined)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
               min="50"
               max="210"
               step="1"
@@ -123,7 +123,7 @@ export default function SearchFilters({
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={() => setShowAdvanced(!showAdvanced)}
-          className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium"
+          className="flex items-center space-x-2 text-orange-600 hover:text-orange-700 font-medium"
         >
           <Filter className="w-4 h-4" />
           <span>{showAdvanced ? 'Skjul' : 'Vis'} avanserte filtre</span>
@@ -149,7 +149,7 @@ export default function SearchFilters({
             <select
               value={filters.brand || ''}
               onChange={(e) => updateFilter('brand', e.target.value || undefined)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
             >
               <option value="">Alle merker</option>
               {POLE_BRANDS.map((brand) => (
@@ -169,7 +169,7 @@ export default function SearchFilters({
               placeholder="0000"
               value={filters.postal_code || ''}
               onChange={(e) => updateFilter('postal_code', e.target.value || undefined)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
               pattern="[0-9]{4}"
               maxLength={4}
             />
@@ -182,7 +182,7 @@ export default function SearchFilters({
             <select
               value={filters.condition_min || ''}
               onChange={(e) => updateFilter('condition_min', e.target.value ? Number(e.target.value) : undefined)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
             >
               <option value="">Alle tilstander</option>
               <option value="1">1 stjerne og opp</option>
