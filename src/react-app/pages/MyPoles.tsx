@@ -608,7 +608,7 @@ export default function MyPolesPage() {
               key={pole.id}
               className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
-              {/* Pole Brand Logo/Visual */}
+              {/* Brand Logo or Placeholder */}
               <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center rounded-t-xl relative overflow-hidden">
                 {getBrandLogoPath(pole.brand) ? (
                   <img 
