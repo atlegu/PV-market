@@ -6,6 +6,52 @@ interface PoleCardProps {
   pole: Pole;
 }
 
+const getBrandLogoPath = (brand: string): string | null => {
+  const brandMap: Record<string, string> = {
+    'UCS Spirit': '/brand-logos/ucs-spirit.svg',
+    'UCS': '/brand-logos/ucs-spirit.svg',
+    'Pacer': '/brand-logos/pacer.svg',
+    'Pacer One': '/brand-logos/pacer.svg',
+    'Pacer FX': '/brand-logos/pacer.svg',
+    'Essx': '/brand-logos/essx.svg',
+    'Nordic': '/brand-logos/nordic.svg',
+    'Nordic Spirit': '/brand-logos/nordic.svg',
+    'Nordic Valhalla': '/brand-logos/nordic.svg',
+    'Gill': '/brand-logos/gill.svg',
+    'Gill Pacer': '/brand-logos/gill.svg',
+    'Altius': '/brand-logos/altius.svg',
+  };
+  
+  return brandMap[brand] || null;
+};
+
+const getBrandInitials = (brand: string): string => {
+  const words = brand.split(' ');
+  if (words.length > 1) {
+    return words.map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  }
+  return brand.slice(0, 2).toUpperCase();
+};
+
+const getBrandColor = (brand: string): string => {
+  const colors = [
+    'from-blue-500 to-blue-600',
+    'from-green-500 to-green-600',
+    'from-purple-500 to-purple-600',
+    'from-red-500 to-red-600',
+    'from-yellow-500 to-yellow-600',
+    'from-indigo-500 to-indigo-600',
+    'from-pink-500 to-pink-600',
+  ];
+  
+  let hash = 0;
+  for (let i = 0; i < brand.length; i++) {
+    hash = brand.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  return colors[Math.abs(hash) % colors.length];
+};
+
 export default function PoleCard({ pole }: PoleCardProps) {
   const formatPrice = (price: number | undefined, type: 'weekly' | 'sale') => {
     if (!price) return null;
@@ -63,15 +109,38 @@ export default function PoleCard({ pole }: PoleCardProps) {
 
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 overflow-hidden border border-gray-100">
-      {/* Pole Image Placeholder */}
-      <div className="h-48 bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center mb-2 mx-auto">
-            <span className="text-white font-bold text-lg">
-              {pole.length_cm / 100}m
+      {/* Brand Logo or Placeholder */}
+      <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden">
+        {getBrandLogoPath(pole.brand) ? (
+          <img 
+            src={getBrandLogoPath(pole.brand)!} 
+            alt={pole.brand}
+            className="max-h-32 max-w-[80%] object-contain"
+            onError={(e) => {
+              // If image fails to load, hide it and show fallback
+              (e.target as HTMLImageElement).style.display = 'none';
+              const fallback = (e.target as HTMLImageElement).nextSibling as HTMLElement;
+              if (fallback) fallback.style.display = 'flex';
+            }}
+          />
+        ) : null}
+        <div 
+          className={`${getBrandLogoPath(pole.brand) ? 'hidden' : 'flex'} flex-col items-center justify-center`}
+          style={{ display: getBrandLogoPath(pole.brand) ? 'none' : undefined }}
+        >
+          <div className={`w-20 h-20 bg-gradient-to-br ${getBrandColor(pole.brand)} rounded-2xl flex items-center justify-center mb-3 shadow-lg`}>
+            <span className="text-white font-bold text-2xl">
+              {getBrandInitials(pole.brand)}
             </span>
           </div>
           <p className="text-sm text-gray-600 font-medium">{pole.brand}</p>
+        </div>
+        
+        {/* Length badge in corner */}
+        <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-md">
+          <span className="text-sm font-bold text-gray-700">
+            {pole.length_cm}cm
+          </span>
         </div>
       </div>
 
