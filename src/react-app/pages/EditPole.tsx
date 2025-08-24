@@ -3,7 +3,7 @@ import { useSupabaseAuth } from '@/react-app/contexts/SupabaseAuthContext';
 import { polesService } from '@/services/poles.service';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Save, ArrowLeft, Trash2 } from 'lucide-react';
-import { POLE_BRANDS, MUNICIPALITIES, CreatePole } from '@/shared/types';
+import { POLE_BRANDS, CreatePole } from '@/shared/types';
 import SearchableSelect from '@/react-app/components/SearchableSelect';
 
 export default function EditPolePage() {
@@ -100,7 +100,9 @@ export default function EditPolePage() {
     setError(null);
     setSuccess(false);
     try {
-      await polesService.updatePole(id, form as any);
+      // Remove location fields from update since they can't be edited
+      const { municipality, postal_code, ...updateData } = form;
+      await polesService.updatePole(id, updateData as any);
       setSuccess(true);
       setTimeout(() => {
         navigate('/my-poles');
@@ -282,46 +284,6 @@ export default function EditPolePage() {
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Valgfritt"
               />
-            </div>
-          </div>
-
-          {/* Lokasjon */}
-          <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900 border-b pb-2">Lokasjon</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Kommune *
-                </label>
-                <select
-                  required
-                  value={form.municipality || ''}
-                  onChange={(e) => setForm({ ...form, municipality: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="">Velg kommune</option>
-                  {MUNICIPALITIES.map((municipality) => (
-                    <option key={municipality} value={municipality}>
-                      {municipality}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Postnummer *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={form.postal_code || ''}
-                  onChange={(e) => setForm({ ...form, postal_code: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  pattern="[0-9]{4}"
-                  maxLength={4}
-                  placeholder="0000"
-                />
-              </div>
             </div>
           </div>
 
