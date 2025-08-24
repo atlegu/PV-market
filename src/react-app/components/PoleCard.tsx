@@ -181,6 +181,11 @@ export default function PoleCard({ pole }: PoleCardProps) {
               {pole.length_cm}cm - {pole.weight_lbs} lbs
             </h3>
             <p className="text-sm text-gray-600 font-medium">{pole.brand}</p>
+            {pole.flex_rating && (
+              <p className="text-sm text-blue-600 font-semibold mt-1">
+                Flex: {pole.flex_rating}
+              </p>
+            )}
           </div>
           <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(pole.status)}`}>
             {getStatusText(pole.status)}

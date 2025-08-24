@@ -1,10 +1,99 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSupabaseAuth } from '@/react-app/contexts/SupabaseAuthContext';
 import { polesService } from '@/services/poles.service';
 import { Link, useNavigate } from 'react-router-dom';
-import { Plus, Package, Star, MapPin, Grid3x3, List, Edit2 } from 'lucide-react';
+import { Plus, Package, Star, MapPin, Grid3x3, List, Edit2, Search, Filter, X, ChevronDown, ArrowUpDown } from 'lucide-react';
 import type { Pole } from '@/shared/types';
-import { getBrandColor } from '@/react-app/utils/brandLogos';
+import { POLE_BRANDS } from '@/shared/types';
+
+const getBrandLogoPath = (brand: string): string | null => {
+  const brandMap: Record<string, string> = {
+    // Altius variants
+    'Altius Carbon Elite': '/brand-logos/altius-carbon-elite.svg',
+    'Altius Fiberglass': '/brand-logos/altius-fiberglass.svg',
+    'Altius Suhr Adrenaline': '/brand-logos/altius-suhr-adrenaline.svg',
+    'Altius': '/brand-logos/altius.svg',
+    
+    // Essx variants
+    'Essx': '/brand-logos/essx.svg',
+    'Essx Launch': '/brand-logos/essx-launch.svg',
+    'Essx Power X': '/brand-logos/essx-power-x.svg',
+    'Essx Recoil': '/brand-logos/essx-recoil.svg',
+    'Essx Recoil Advanced': '/brand-logos/essx-recoil-advanced.svg',
+    
+    // Fibersport variants
+    'Fibersport Carbon': '/brand-logos/fibersport-carbon.svg',
+    'Fibersport Carbon +': '/brand-logos/fibersport-carbon-plus.svg',
+    'Fibersport Non-Carbon': '/brand-logos/fibersport-non-carbon.svg',
+    
+    // Nordic variants
+    'Nordic': '/brand-logos/nordic.svg',
+    'Nordic Bifrost Glassfiber': '/brand-logos/nordic-bifrost-glassfiber.svg',
+    'Nordic Bifrost Hybrid': '/brand-logos/nordic-bifrost-hybrid.svg',
+    'Nordic Evolution': '/brand-logos/nordic-evolution.svg',
+    'Nordic HiFly': '/brand-logos/nordic-hifly.svg',
+    'Nordic Spirit': '/brand-logos/nordic.svg',
+    'Nordic Valhalla': '/brand-logos/nordic.svg',
+    
+    // Pacer variants
+    'Pacer': '/brand-logos/pacer.svg',
+    'Pacer Carbon FX': '/brand-logos/pacer-carbon-fx.svg',
+    'Pacer One': '/brand-logos/pacer-one.svg',
+    'Pacer Composite': '/brand-logos/pacer-composite.svg',
+    'Pacer Mystic': '/brand-logos/pacer-mystic.svg',
+    'Pacer FX': '/brand-logos/pacer.svg',
+    
+    // Others
+    'UCS Spirit': '/brand-logos/ucs-spirit.svg',
+    'UCS': '/brand-logos/ucs-spirit.svg',
+    'Gill': '/brand-logos/gill.svg',
+    'Gill Pacer': '/brand-logos/gill.svg',
+    'Annen': '/brand-logos/annen.svg',
+  };
+  
+  return brandMap[brand] || null;
+};
+
+const getBrandInitials = (brand: string): string => {
+  const words = brand.split(' ');
+  if (words.length > 1) {
+    return words.map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  }
+  return brand.slice(0, 2).toUpperCase();
+};
+
+const getBrandColor = (brand: string): string => {
+  const colors = [
+    'from-blue-500 to-blue-600',
+    'from-green-500 to-green-600',
+    'from-purple-500 to-purple-600',
+    'from-red-500 to-red-600',
+    'from-yellow-500 to-yellow-600',
+    'from-indigo-500 to-indigo-600',
+    'from-pink-500 to-pink-600',
+  ];
+  
+  let hash = 0;
+  for (let i = 0; i < brand.length; i++) {
+    hash = brand.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  return colors[Math.abs(hash) % colors.length];
+};
+
+type SortOption = 'length_asc' | 'length_desc' | 'weight_asc' | 'weight_desc' | 'brand_asc' | 'brand_desc' | 'condition_asc' | 'condition_desc' | 'created_asc' | 'created_desc';
+
+interface MyPolesFilters {
+  search: string;
+  brand: string;
+  lengthMin: string;
+  lengthMax: string;
+  weightMin: string;
+  weightMax: string;
+  flexRating: string;
+  condition: string;
+  status: string;
+}
 
 export default function MyPolesPage() {
   const { user, loading: authLoading } = useSupabaseAuth();
@@ -12,6 +101,19 @@ export default function MyPolesPage() {
   const [poles, setPoles] = useState<Pole[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [sortBy, setSortBy] = useState<SortOption>('created_desc');
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState<MyPolesFilters>({
+    search: '',
+    brand: '',
+    lengthMin: '',
+    lengthMax: '',
+    weightMin: '',
+    weightMax: '',
+    flexRating: '',
+    condition: '',
+    status: ''
+  });
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -36,6 +138,109 @@ export default function MyPolesPage() {
 
     fetchPoles();
   }, [user, navigate, authLoading]);
+
+  // Filter and sort poles
+  const filteredAndSortedPoles = useMemo(() => {
+    let result = [...poles];
+
+    // Apply filters
+    if (filters.search) {
+      const search = filters.search.toLowerCase();
+      result = result.filter(pole => 
+        pole.brand.toLowerCase().includes(search) ||
+        pole.serial_number?.toLowerCase().includes(search) ||
+        pole.internal_notes?.toLowerCase().includes(search) ||
+        pole.flex_rating?.toLowerCase().includes(search)
+      );
+    }
+
+    if (filters.brand) {
+      result = result.filter(pole => pole.brand === filters.brand);
+    }
+
+    if (filters.lengthMin) {
+      result = result.filter(pole => pole.length_cm >= parseInt(filters.lengthMin));
+    }
+
+    if (filters.lengthMax) {
+      result = result.filter(pole => pole.length_cm <= parseInt(filters.lengthMax));
+    }
+
+    if (filters.weightMin) {
+      result = result.filter(pole => pole.weight_lbs >= parseInt(filters.weightMin));
+    }
+
+    if (filters.weightMax) {
+      result = result.filter(pole => pole.weight_lbs <= parseInt(filters.weightMax));
+    }
+
+    if (filters.flexRating) {
+      result = result.filter(pole => pole.flex_rating?.includes(filters.flexRating));
+    }
+
+    if (filters.condition) {
+      result = result.filter(pole => pole.condition_rating === parseInt(filters.condition));
+    }
+
+    if (filters.status) {
+      result = result.filter(pole => pole.status === filters.status);
+    }
+
+    // Apply sorting
+    result.sort((a, b) => {
+      switch (sortBy) {
+        case 'length_asc':
+          return a.length_cm - b.length_cm;
+        case 'length_desc':
+          return b.length_cm - a.length_cm;
+        case 'weight_asc':
+          return a.weight_lbs - b.weight_lbs;
+        case 'weight_desc':
+          return b.weight_lbs - a.weight_lbs;
+        case 'brand_asc':
+          return a.brand.localeCompare(b.brand);
+        case 'brand_desc':
+          return b.brand.localeCompare(a.brand);
+        case 'condition_asc':
+          return a.condition_rating - b.condition_rating;
+        case 'condition_desc':
+          return b.condition_rating - a.condition_rating;
+        case 'created_asc':
+          return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+        case 'created_desc':
+        default:
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      }
+    });
+
+    return result;
+  }, [poles, filters, sortBy]);
+
+  // Get unique values for filter dropdowns
+  const uniqueFlexRatings = useMemo(() => {
+    const flexRatings = poles.map(pole => pole.flex_rating).filter(Boolean);
+    return [...new Set(flexRatings)].sort();
+  }, [poles]);
+
+  const updateFilter = (key: keyof MyPolesFilters, value: string) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      search: '',
+      brand: '',
+      lengthMin: '',
+      lengthMax: '',
+      weightMin: '',
+      weightMax: '',
+      flexRating: '',
+      condition: '',
+      status: ''
+    });
+  };
+
+  const hasActiveFilters = Object.values(filters).some(value => value !== '');
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -105,11 +310,11 @@ export default function MyPolesPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Mine staver</h1>
           <p className="text-gray-600 mt-2">
-            Administrer stavene dine og se aktivitet
+            {filteredAndSortedPoles.length} av {poles.length} staver
           </p>
         </div>
         <div className="flex items-center space-x-3">
@@ -150,6 +355,200 @@ export default function MyPolesPage() {
         </div>
       </div>
 
+      {/* Search and Filter Bar */}
+      <div className="bg-white rounded-xl shadow-lg border border-gray-100 mb-6">
+        <div className="p-4">
+          {/* Search and Controls Row */}
+          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-4">
+            {/* Search */}
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                value={filters.search}
+                onChange={(e) => updateFilter('search', e.target.value)}
+                placeholder="Søk i merke, serienummer, notater..."
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+
+            {/* Controls */}
+            <div className="flex items-center space-x-3">
+              {/* Sort dropdown */}
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+              >
+                <option value="created_desc">Nyeste først</option>
+                <option value="created_asc">Eldste først</option>
+                <option value="length_asc">Lengde: Lav til høy</option>
+                <option value="length_desc">Lengde: Høy til lav</option>
+                <option value="weight_asc">Vekt: Lav til høy</option>
+                <option value="weight_desc">Vekt: Høy til lav</option>
+                <option value="brand_asc">Merke: A-Z</option>
+                <option value="brand_desc">Merke: Z-A</option>
+                <option value="condition_asc">Tilstand: Lav til høy</option>
+                <option value="condition_desc">Tilstand: Høy til lav</option>
+              </select>
+
+              {/* Filter toggle */}
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className={`px-3 py-2 rounded-lg border transition-all flex items-center space-x-2 ${
+                  showFilters
+                    ? 'bg-blue-50 text-blue-700 border-blue-200'
+                    : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                <Filter className="w-4 h-4" />
+                <span className="text-sm font-medium">Filtre</span>
+                {hasActiveFilters && (
+                  <span className="bg-blue-500 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[1.25rem] text-center">
+                    {Object.values(filters).filter(v => v !== '').length}
+                  </span>
+                )}
+              </button>
+
+              {hasActiveFilters && (
+                <button
+                  onClick={clearFilters}
+                  className="px-3 py-2 text-gray-500 hover:text-red-600 text-sm font-medium transition-colors"
+                  title="Nullstill filtre"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Advanced Filters */}
+          {showFilters && (
+            <div className="border-t border-gray-200 pt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Brand filter */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Merke</label>
+                  <select
+                    value={filters.brand}
+                    onChange={(e) => updateFilter('brand', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  >
+                    <option value="">Alle merker</option>
+                    {POLE_BRANDS.map((brand) => (
+                      <option key={brand} value={brand}>
+                        {brand}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Length range */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Lengde (cm)</label>
+                  <div className="flex space-x-2">
+                    <input
+                      type="number"
+                      value={filters.lengthMin}
+                      onChange={(e) => updateFilter('lengthMin', e.target.value)}
+                      placeholder="Min"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                      min="250"
+                      max="520"
+                    />
+                    <input
+                      type="number"
+                      value={filters.lengthMax}
+                      onChange={(e) => updateFilter('lengthMax', e.target.value)}
+                      placeholder="Max"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                      min="250"
+                      max="520"
+                    />
+                  </div>
+                </div>
+
+                {/* Weight range */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Vekt (lbs)</label>
+                  <div className="flex space-x-2">
+                    <input
+                      type="number"
+                      value={filters.weightMin}
+                      onChange={(e) => updateFilter('weightMin', e.target.value)}
+                      placeholder="Min"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                      min="50"
+                      max="210"
+                    />
+                    <input
+                      type="number"
+                      value={filters.weightMax}
+                      onChange={(e) => updateFilter('weightMax', e.target.value)}
+                      placeholder="Max"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                      min="50"
+                      max="210"
+                    />
+                  </div>
+                </div>
+
+                {/* Flex rating */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Flex-rating</label>
+                  <select
+                    value={filters.flexRating}
+                    onChange={(e) => updateFilter('flexRating', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  >
+                    <option value="">Alle flex-ratings</option>
+                    {uniqueFlexRatings.map((flex) => (
+                      <option key={flex} value={flex}>
+                        {flex}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Condition */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Tilstand</label>
+                  <select
+                    value={filters.condition}
+                    onChange={(e) => updateFilter('condition', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  >
+                    <option value="">Alle tilstander</option>
+                    <option value="5">5 - Perfekt</option>
+                    <option value="4">4 - God</option>
+                    <option value="3">3 - Middels</option>
+                    <option value="2">2 - Under middels</option>
+                    <option value="1">1 - Dårlig</option>
+                  </select>
+                </div>
+
+                {/* Status */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                  <select
+                    value={filters.status}
+                    onChange={(e) => updateFilter('status', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  >
+                    <option value="">Alle statuser</option>
+                    <option value="available">Tilgjengelig for leie</option>
+                    <option value="for_sale">Til salgs</option>
+                    <option value="rented">Utleid</option>
+                    <option value="reserved">Reservert</option>
+                    <option value="unavailable">I bruk</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Poles Grid or List */}
       {poles.length === 0 ? (
         <div className="text-center py-12">
@@ -170,25 +569,63 @@ export default function MyPolesPage() {
             <span>Legg til første stav</span>
           </Link>
         </div>
+      ) : filteredAndSortedPoles.length === 0 ? (
+        <div className="text-center py-12 bg-white rounded-xl shadow-lg border border-gray-100">
+          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Search className="w-8 h-8 text-gray-400" />
+          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">
+            Ingen staver matcher søkekriteriene
+          </h3>
+          <p className="text-gray-600 mb-6">
+            Prøv å justere filtrene eller søkeordene dine.
+          </p>
+          <button
+            onClick={clearFilters}
+            className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+          >
+            Nullstill filtre
+          </button>
+        </div>
       ) : viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {poles.map((pole) => (
+          {filteredAndSortedPoles.map((pole) => (
             <div
               key={pole.id}
               className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
               {/* Pole Brand Logo/Visual */}
-              <div className={`h-48 bg-gradient-to-br ${getBrandColor(pole.brand)} flex items-center justify-center rounded-t-xl relative overflow-hidden`}>
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-white/20 backdrop-blur rounded-full flex items-center justify-center mb-3 mx-auto">
+              <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center rounded-t-xl relative overflow-hidden">
+                {getBrandLogoPath(pole.brand) ? (
+                  <img 
+                    src={getBrandLogoPath(pole.brand)!} 
+                    alt={pole.brand}
+                    className="max-h-32 max-w-[80%] object-contain"
+                    onError={(e) => {
+                      // If image fails to load, hide it and show fallback
+                      (e.target as HTMLImageElement).style.display = 'none';
+                      const fallback = (e.target as HTMLImageElement).nextSibling as HTMLElement;
+                      if (fallback) fallback.style.display = 'flex';
+                    }}
+                  />
+                ) : null}
+                <div 
+                  className={`${getBrandLogoPath(pole.brand) ? 'hidden' : 'flex'} flex-col items-center justify-center`}
+                  style={{ display: getBrandLogoPath(pole.brand) ? 'none' : undefined }}
+                >
+                  <div className={`w-20 h-20 bg-gradient-to-br ${getBrandColor(pole.brand)} rounded-2xl flex items-center justify-center mb-3 shadow-lg`}>
                     <span className="text-white font-bold text-2xl">
-                      {pole.brand.substring(0, 2).toUpperCase()}
+                      {getBrandInitials(pole.brand)}
                     </span>
                   </div>
-                  <p className="text-white font-bold text-lg">{pole.brand}</p>
-                  <p className="text-white/80 text-sm mt-1">
-                    {pole.length_cm}cm / {pole.weight_lbs}lbs
-                  </p>
+                  <p className="text-sm text-gray-600 font-medium">{pole.brand}</p>
+                </div>
+                
+                {/* Length badge in corner */}
+                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-md">
+                  <span className="text-sm font-bold text-gray-700">
+                    {pole.length_cm}cm
+                  </span>
                 </div>
               </div>
 
@@ -200,6 +637,11 @@ export default function MyPolesPage() {
                       {pole.length_cm}cm - {pole.weight_lbs} lbs
                     </h3>
                     <p className="text-sm text-gray-600 font-medium">{pole.brand}</p>
+                    {pole.flex_rating && (
+                      <p className="text-sm text-blue-600 font-semibold mt-1">
+                        Flex: {pole.flex_rating}
+                      </p>
+                    )}
                   </div>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(pole.status)}`}>
                     {getStatusText(pole.status)}
@@ -287,7 +729,7 @@ export default function MyPolesPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {poles.map((pole) => (
+                {filteredAndSortedPoles.map((pole) => (
                   <tr key={pole.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {pole.length_cm} cm
