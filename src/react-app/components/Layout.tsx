@@ -137,10 +137,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <footer className="bg-white border-t border-gray-200 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-gray-600">
-            <p className="text-sm">
-              © 2025 PV Market. En non-profit plattform for stavmiljøet i Norge.
+            <p className="text-sm font-medium">
+              PV Market - En non-profit plattform for stavmiljøet i Norge.
             </p>
-            <p className="text-xs mt-2">
+            <p className="text-sm mt-2">
+              © stavhopp.no llc, all rights reserved, contact atle@stavhopp.no for questions
+            </p>
+            <p className="text-xs mt-3 text-gray-500">
               Laget med ❤️ for å gjøre stavhopp mer tilgjengelig
             </p>
           </div>
