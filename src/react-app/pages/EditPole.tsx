@@ -186,7 +186,7 @@ export default function EditPolePage() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   min="250"
                   max="520"
-                  step="5"
+                  step="1"
                 />
               </div>
               <div>
@@ -201,7 +201,7 @@ export default function EditPolePage() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   min="50"
                   max="210"
-                  step="5"
+                  step="1"
                 />
               </div>
             </div>

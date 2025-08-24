@@ -285,7 +285,7 @@ export default function AddPoleBulkPage() {
                         className="w-24 px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         min="250"
                         max="520"
-                        step="5"
+                        step="1"
                         placeholder="cm"
                       />
                     </td>
@@ -297,7 +297,7 @@ export default function AddPoleBulkPage() {
                         className="w-20 px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         min="50"
                         max="210"
-                        step="5"
+                        step="1"
                         placeholder="lbs"
                       />
                     </td>

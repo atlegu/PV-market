@@ -25,6 +25,7 @@ const getBrandLogoPath = (brand: string): string | null => {
     'Fibersport Carbon': '/brand-logos/fibersport-carbon.svg',
     'Fibersport Carbon +': '/brand-logos/fibersport-carbon-plus.svg',
     'Fibersport Non-Carbon': '/brand-logos/fibersport-non-carbon.svg',
+    'Fibersport': '/brand-logos/fibersport.svg',
     
     // Nordic variants
     'Nordic': '/brand-logos/nordic.svg',
@@ -51,7 +52,20 @@ const getBrandLogoPath = (brand: string): string | null => {
     'Annen': '/brand-logos/annen.svg',
   };
   
-  return brandMap[brand] || null;
+  // Try exact match first
+  if (brandMap[brand]) {
+    return brandMap[brand];
+  }
+  
+  // Try to find base brand by checking if the brand starts with known base brands
+  const baseBrands = ['Altius', 'Essx', 'Fibersport', 'Nordic', 'Pacer', 'UCS', 'Gill'];
+  for (const baseBrand of baseBrands) {
+    if (brand.toLowerCase().startsWith(baseBrand.toLowerCase())) {
+      return `/brand-logos/${baseBrand.toLowerCase()}.svg`;
+    }
+  }
+  
+  return null;
 };
 
 const getBrandInitials = (brand: string): string => {
