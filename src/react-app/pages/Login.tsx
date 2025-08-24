@@ -1,4 +1,4 @@
-import { useUnifiedAuth } from '@/react-app/hooks/useUnifiedAuth';
+import { useSupabaseAuth } from '@/react-app/contexts/SupabaseAuthContext';
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { LogIn, Shield, Users, Zap, Eye, EyeOff, AlertCircle, Mail } from 'lucide-react';
@@ -9,7 +9,7 @@ type LoginData = {
 };
 
 export default function LoginPage() {
-  const { user, redirectToLogin, isLoading: authLoading } = useUnifiedAuth();
+  const { user, loading: authLoading, signIn } = useSupabaseAuth();
   const navigate = useNavigate();
   
   const [loginMethod, setLoginMethod] = useState<'google' | 'email'>('google');
@@ -30,11 +30,7 @@ export default function LoginPage() {
   }, [user, navigate]);
 
   const handleGoogleLogin = async () => {
-    try {
-      await redirectToLogin();
-    } catch (error) {
-      console.error('Google login error:', error);
-    }
+    setErrors({ general: 'Google-innlogging er ikke tilgjengelig ennå' });
   };
 
   const validateForm = () => {
@@ -64,38 +60,14 @@ export default function LoginPage() {
     setErrors({});
 
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      let data;
-      try {
-        data = await response.json();
-      } catch (jsonError) {
-        console.error('Failed to parse response:', jsonError);
-        throw new Error('Serveren svarte med ugyldig data. Prøv igjen.');
-      }
-
-      if (!response.ok) {
-        const errorMsg = data?.error || data?.message || 'Innlogging feilet';
-        throw new Error(errorMsg);
-      }
-
-      // Make sure we have the expected data
-      if (!data.token || !data.user) {
-        throw new Error('Ugyldig respons fra serveren');
-      }
-
-      // Save token and user data
-      localStorage.setItem('auth_token', data.token);
-      localStorage.setItem('auth_user', JSON.stringify(data.user));
+      const { error } = await signIn(formData.email, formData.password);
       
-      // Trigger a page reload to update auth state
-      window.location.href = '/';
+      if (error) {
+        throw new Error(error.message || 'Innlogging feilet');
+      }
+
+      // Successful login - navigate to home
+      navigate('/');
     } catch (error: any) {
       console.error('Email login error full details:', {
         error,
