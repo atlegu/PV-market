@@ -20,7 +20,7 @@ export default function AboutPage() {
             Om tjenesten
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Velkommen til Norges første plattform for kjøp, leie og utlån av stavhoppstaver.
+            Velkommen til Norges første plattform for kjøp, leie og utlån av staver.
           </p>
         </div>
 
