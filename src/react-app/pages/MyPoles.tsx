@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useSupabaseAuth } from '@/react-app/contexts/SupabaseAuthContext';
 import { polesService } from '@/services/poles.service';
 import { Link, useNavigate } from 'react-router-dom';
-import { Plus, Package, Star, MapPin, Grid3x3, List, Edit2, Search, Filter, X, ChevronDown, ArrowUpDown } from 'lucide-react';
+import { Plus, Package, Star, MapPin, Grid3x3, List, Edit2, Search, Filter, X } from 'lucide-react';
 import type { Pole } from '@/shared/types';
 import { POLE_BRANDS } from '@/shared/types';
 
