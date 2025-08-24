@@ -30,6 +30,18 @@ export default function SearchFilters({
 
   return (
     <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-8">
+      {/* Search Button at Top */}
+      <div className="flex justify-center mb-6">
+        <button
+          onClick={onSearch}
+          disabled={isLoading}
+          className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+        >
+          <Search className="w-5 h-5" />
+          <span>{isLoading ? 'Søker...' : 'Søk etter staver'}</span>
+        </button>
+      </div>
+
       {/* Quick Search */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="flex-1">
@@ -218,18 +230,6 @@ export default function SearchFilters({
           </div>
         </div>
       )}
-
-      {/* Search Button */}
-      <div className="flex justify-center">
-        <button
-          onClick={onSearch}
-          disabled={isLoading}
-          className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
-        >
-          <Search className="w-5 h-5" />
-          <span>{isLoading ? 'Søker...' : 'Søk etter staver'}</span>
-        </button>
-      </div>
     </div>
   );
 }
