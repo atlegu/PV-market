@@ -1,17 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, Chrome, AlertCircle } from 'lucide-react';
+import { Mail, Lock, AlertCircle, LogIn, Eye, EyeOff } from 'lucide-react';
 import { useSupabaseAuth } from '@/react-app/contexts/SupabaseAuthContext';
 
 export default function LoginSupabasePage() {
   const navigate = useNavigate();
-  const { signIn, signInWithGoogle } = useSupabaseAuth();
+  const { signIn, user, loading: authLoading } = useSupabaseAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,13 +37,14 @@ export default function LoginSupabasePage() {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    setError(null);
-    const { error } = await signInWithGoogle();
-    if (error) {
-      setError('Kunne ikke logge inn med Google. Prøv igjen.');
-    }
-  };
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -60,24 +68,6 @@ export default function LoginSupabasePage() {
               <p className="text-red-800 text-sm">{error}</p>
             </div>
           )}
-
-          {/* Google Login */}
-          <button
-            onClick={handleGoogleLogin}
-            className="w-full bg-white border border-gray-300 text-gray-700 px-4 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center space-x-3"
-          >
-            <Chrome className="w-5 h-5" />
-            <span>Fortsett med Google</span>
-          </button>
-
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">eller</span>
-            </div>
-          </div>
 
           {/* Email/Password Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -107,13 +97,20 @@ export default function LoginSupabasePage() {
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="••••••••"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
               </div>
             </div>
 
@@ -122,7 +119,17 @@ export default function LoginSupabasePage() {
               disabled={isLoading}
               className="w-full bg-gradient-to-r from-blue-600 to-green-600 text-white px-4 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
-              {isLoading ? 'Logger inn...' : 'Logg inn'}
+              {isLoading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin inline-block mr-2" />
+                  Logger inn...
+                </>
+              ) : (
+                <>
+                  <LogIn className="w-5 h-5 inline-block mr-2" />
+                  Logg inn
+                </>
+              )}
             </button>
           </form>
 
