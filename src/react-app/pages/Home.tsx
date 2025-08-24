@@ -118,15 +118,17 @@ export default function HomePage() {
           <Lightbulb className="w-6 h-6 text-purple-600" />
           <h2 className="text-xl font-bold text-gray-900">Usikker på hvilken stav du trenger?</h2>
         </div>
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-600 mb-4 text-center">
           Bruk vår intelligente stavveileder for å finne den perfekte staven basert på din nåværende utvikling.
         </p>
-        <button
-          onClick={() => setShowAdvisor(true)}
-          className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105"
-        >
-          Bruk stavveileder
-        </button>
+        <div className="flex justify-center">
+          <button
+            onClick={() => setShowAdvisor(true)}
+            className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+          >
+            Bruk stavveileder
+          </button>
+        </div>
       </div>
 
       {/* Results */}
