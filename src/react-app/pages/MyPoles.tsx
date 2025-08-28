@@ -266,7 +266,7 @@ export default function MyPolesPage() {
       // Update local state
       setPoles(prevPoles => 
         prevPoles.map(pole => 
-          pole.id === poleId ? { ...pole, status: newStatus as any } : pole
+          pole.id.toString() === poleId ? { ...pole, status: newStatus as any } : pole
         )
       );
     } catch (error) {
@@ -294,22 +294,6 @@ export default function MyPolesPage() {
     }
   };
 
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'available':
-        return 'Tilgjengelig for leie';
-      case 'for_sale':
-        return 'Til salgs';
-      case 'rented':
-        return 'Utleid';
-      case 'reserved':
-        return 'Reservert';
-      case 'unavailable':
-        return 'I bruk';
-      default:
-        return status;
-    }
-  };
 
   const renderStars = (rating: number) => {
     return (
