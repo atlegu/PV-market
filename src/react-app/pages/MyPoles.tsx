@@ -266,7 +266,7 @@ export default function MyPolesPage() {
       // Update local state
       setPoles(prevPoles => 
         prevPoles.map(pole => 
-          pole.id.toString() === poleId ? { ...pole, status: newStatus as any } : pole
+          pole.id === Number(poleId) ? { ...pole, status: newStatus as any } : pole
         )
       );
     } catch (error) {

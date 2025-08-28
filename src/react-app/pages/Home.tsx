@@ -4,8 +4,9 @@ import { polesService } from '@/services/poles.service';
 import { supabase } from '@/lib/supabase';
 import SearchFilters from '@/react-app/components/SearchFilters';
 import PoleCard from '@/react-app/components/PoleCard';
+import PoleList from '@/react-app/components/PoleList';
 import PoleAdvisor from '@/react-app/components/PoleAdvisor';
-import { Compass, TrendingUp, Users, Lightbulb, Search } from 'lucide-react';
+import { Compass, TrendingUp, Users, Lightbulb, Search, Grid3x3, List } from 'lucide-react';
 import type { Pole, SearchFilters as SearchFiltersType } from '@/shared/types';
 
 export default function HomePage() {
@@ -15,6 +16,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [showAdvisor, setShowAdvisor] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [totalPoles, setTotalPoles] = useState<number>(0);
   const [totalUsers, setTotalUsers] = useState<number>(0);
 
@@ -139,8 +141,36 @@ export default function HomePage() {
               {isLoading ? 'Søker...' : `${poles.length} staver funnet`}
             </h2>
             {poles.length > 0 && (
-              <div className="text-sm text-gray-600">
-                Sortert etter nyeste først
+              <div className="flex items-center space-x-3">
+                <div className="text-sm text-gray-600">
+                  Sortert etter nyeste først
+                </div>
+                <div className="flex bg-gray-100 rounded-lg p-1">
+                  <button
+                    onClick={() => setViewMode('grid')}
+                    className={`px-3 py-1.5 rounded-md flex items-center space-x-1 transition-all ${
+                      viewMode === 'grid'
+                        ? 'bg-white shadow-sm text-orange-600'
+                        : 'text-gray-600 hover:text-gray-800'
+                    }`}
+                    title="Kortvisning"
+                  >
+                    <Grid3x3 className="w-4 h-4" />
+                    <span className="text-sm font-medium">Kort</span>
+                  </button>
+                  <button
+                    onClick={() => setViewMode('list')}
+                    className={`px-3 py-1.5 rounded-md flex items-center space-x-1 transition-all ${
+                      viewMode === 'list'
+                        ? 'bg-white shadow-sm text-orange-600'
+                        : 'text-gray-600 hover:text-gray-800'
+                    }`}
+                    title="Listevisning"
+                  >
+                    <List className="w-4 h-4" />
+                    <span className="text-sm font-medium">Liste</span>
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -153,11 +183,19 @@ export default function HomePage() {
             ))}
           </div>
         ) : poles.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {poles.map((pole) => (
-              <PoleCard key={pole.id} pole={pole} />
-            ))}
-          </div>
+          viewMode === 'grid' ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {poles.map((pole) => (
+                <PoleCard key={pole.id} pole={pole} />
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col space-y-4">
+              {poles.map((pole) => (
+                <PoleList key={pole.id} pole={pole} />
+              ))}
+            </div>
+          )
         ) : hasSearched ? (
           <div className="text-center py-12">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
