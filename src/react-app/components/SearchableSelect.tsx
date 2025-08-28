@@ -114,7 +114,7 @@ export default function SearchableSelect({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           required={required}
-          className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
         />
         <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
           {value && !isOpen ? (
@@ -144,7 +144,7 @@ export default function SearchableSelect({
                 onMouseEnter={() => setHighlightedIndex(index)}
                 className={`px-3 py-2 cursor-pointer ${
                   index === highlightedIndex
-                    ? 'bg-blue-50 text-blue-700'
+                    ? 'bg-blue-50 text-blue-900'
                     : 'hover:bg-gray-50'
                 } ${option === value ? 'font-medium' : ''}`}
               >

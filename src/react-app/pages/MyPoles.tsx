@@ -1,8 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSupabaseAuth } from '@/react-app/contexts/SupabaseAuthContext';
 import { polesService } from '@/services/poles.service';
 import { Link, useNavigate } from 'react-router-dom';
-import { Plus, Package, Star, MapPin, Grid3x3, List, Edit2, Search, Filter, X } from 'lucide-react';
+import { Plus, Package, Star, MapPin, Grid3x3, List, Edit2, Search, Filter, X, ChevronDown } from 'lucide-react';
 import type { Pole } from '@/shared/types';
 import { POLE_BRANDS } from '@/shared/types';
 
@@ -117,6 +117,7 @@ export default function MyPolesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState<SortOption>('created_desc');
   const [showFilters, setShowFilters] = useState(false);
+  const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
   const [filters, setFilters] = useState<MyPolesFilters>({
     search: '',
     brand: '',
@@ -255,6 +256,26 @@ export default function MyPolesPage() {
   };
 
   const hasActiveFilters = Object.values(filters).some(value => value !== '');
+
+  // Handle status update
+  const handleStatusUpdate = useCallback(async (poleId: string, newStatus: string) => {
+    setUpdatingStatus(poleId);
+    try {
+      await polesService.updatePole(poleId, { status: newStatus as any });
+      
+      // Update local state
+      setPoles(prevPoles => 
+        prevPoles.map(pole => 
+          pole.id === poleId ? { ...pole, status: newStatus as any } : pole
+        )
+      );
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert('Kunne ikke oppdatere status. Prøv igjen.');
+    } finally {
+      setUpdatingStatus(null);
+    }
+  }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -657,9 +678,22 @@ export default function MyPolesPage() {
                       </p>
                     )}
                   </div>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(pole.status)}`}>
-                    {getStatusText(pole.status)}
-                  </span>
+                  <div className="relative">
+                    <select
+                      value={pole.status}
+                      onChange={(e) => handleStatusUpdate(pole.id.toString(), e.target.value)}
+                      disabled={updatingStatus === pole.id.toString()}
+                      className={`px-3 py-1 pr-7 rounded-full text-xs font-medium border-0 cursor-pointer focus:ring-2 focus:ring-blue-500 appearance-none ${getStatusColor(pole.status)} ${updatingStatus === pole.id.toString() ? 'opacity-50' : ''} hover:opacity-80 transition-opacity`}
+                      title="Klikk for å endre status"
+                    >
+                      <option value="available">Tilgjengelig for leie</option>
+                      <option value="for_sale">Til salgs</option>
+                      <option value="rented">Utleid</option>
+                      <option value="reserved">Reservert</option>
+                      <option value="unavailable">I bruk</option>
+                    </select>
+                    <ChevronDown className="absolute right-1 top-1/2 transform -translate-y-1/2 w-3 h-3 pointer-events-none text-gray-600" />
+                  </div>
                 </div>
 
                 {/* Condition */}
@@ -763,9 +797,22 @@ export default function MyPolesPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(pole.status)}`}>
-                        {getStatusText(pole.status)}
-                      </span>
+                      <div className="relative inline-block">
+                        <select
+                          value={pole.status}
+                          onChange={(e) => handleStatusUpdate(pole.id.toString(), e.target.value)}
+                          disabled={updatingStatus === pole.id.toString()}
+                          className={`px-3 py-1.5 pr-8 rounded-full text-xs font-semibold border-0 cursor-pointer focus:ring-2 focus:ring-blue-500 appearance-none ${getStatusColor(pole.status)} ${updatingStatus === pole.id.toString() ? 'opacity-50' : ''} hover:opacity-80 transition-opacity`}
+                          title="Klikk for å endre status"
+                        >
+                          <option value="available">Tilgjengelig for leie</option>
+                          <option value="for_sale">Til salgs</option>
+                          <option value="rented">Utleid</option>
+                          <option value="reserved">Reservert</option>
+                          <option value="unavailable">I bruk</option>
+                        </select>
+                        <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-3 pointer-events-none text-gray-600" />
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex items-center space-x-3">

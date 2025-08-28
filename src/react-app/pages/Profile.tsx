@@ -109,7 +109,7 @@ export default function ProfilePage() {
             <img
               src={(user as any)?.google_user_data?.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.email || '')}&background=3b82f6&color=ffffff`}
               alt="Profile"
-              className="w-16 h-16 rounded-full ring-4 ring-blue-500/20"
+              className="w-16 h-16 rounded-full ring-4 ring-blue-900/20"
             />
             <div>
               <h1 className="text-2xl font-bold text-gray-900">
@@ -121,7 +121,7 @@ export default function ProfilePage() {
           {profile && !isEditing && (
             <button
               onClick={() => setIsEditing(true)}
-              className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium"
+              className="flex items-center space-x-2 text-blue-900 hover:text-indigo-800 font-medium"
             >
               <Edit className="w-4 h-4" />
               <span>Rediger</span>
@@ -215,7 +215,7 @@ export default function ProfilePage() {
               <select
                 value={form.user_type}
                 onChange={(e) => setForm({ ...form, user_type: e.target.value as 'individual' | 'club' })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
               >
                 <option value="individual">Privatperson</option>
                 <option value="club">Klubb</option>
@@ -231,7 +231,7 @@ export default function ProfilePage() {
                   type="text"
                   value={form.name || ''}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                   placeholder="Ditt navn"
                 />
               </div>
@@ -244,7 +244,7 @@ export default function ProfilePage() {
                   type="tel"
                   value={form.phone || ''}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                   placeholder="+47 123 45 678"
                 />
               </div>
@@ -260,7 +260,7 @@ export default function ProfilePage() {
                     type="text"
                     value={form.club_name || ''}
                     onChange={(e) => setForm({ ...form, club_name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                     placeholder="Navn på idrettslaget"
                   />
                 </div>
@@ -273,7 +273,7 @@ export default function ProfilePage() {
                     type="text"
                     value={form.org_number || ''}
                     onChange={(e) => setForm({ ...form, org_number: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                     placeholder="123456789"
                   />
                 </div>
@@ -288,7 +288,7 @@ export default function ProfilePage() {
                 <select
                   value={form.municipality || ''}
                   onChange={(e) => setForm({ ...form, municipality: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                 >
                   <option value="">Velg kommune</option>
                   {MUNICIPALITIES.map((municipality) => (
@@ -307,7 +307,7 @@ export default function ProfilePage() {
                   type="text"
                   value={form.postal_code || ''}
                   onChange={(e) => setForm({ ...form, postal_code: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                   placeholder="0000"
                   pattern="[0-9]{4}"
                   maxLength={4}
@@ -327,7 +327,7 @@ export default function ProfilePage() {
               <button
                 onClick={handleSave}
                 disabled={isSaving}
-                className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSaving ? 'Lagrer...' : 'Lagre profil'}
               </button>

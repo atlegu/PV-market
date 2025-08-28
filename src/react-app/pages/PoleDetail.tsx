@@ -169,7 +169,7 @@ Mvh`);
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Stav ikke funnet</h1>
         <button
           onClick={() => navigate('/')}
-          className="text-blue-600 hover:text-blue-700 font-medium"
+          className="text-blue-900 hover:text-indigo-800 font-medium"
         >
           Tilbake til søk
         </button>
@@ -191,9 +191,9 @@ Mvh`);
       </button>
 
       {/* Pole Image */}
-      <div className="h-96 bg-gradient-to-br from-blue-100 to-green-100 rounded-xl flex items-center justify-center mb-8">
+      <div className="h-96 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center mb-8">
         <div className="text-center">
-          <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center mb-4 mx-auto">
+          <div className="w-24 h-24 bg-gradient-to-br from-blue-900 to-indigo-800 rounded-full flex items-center justify-center mb-4 mx-auto">
             <span className="text-white font-bold text-2xl">
               {pole.length_cm / 100}m
             </span>
@@ -292,7 +292,7 @@ Mvh`);
               {pole.price_sale && (
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Salgspris:</span>
-                  <span className="text-xl font-bold text-blue-600">
+                  <span className="text-xl font-bold text-blue-900">
                     {pole.price_sale} kr
                   </span>
                 </div>
@@ -334,7 +334,7 @@ Mvh`);
                 <div className="pt-3 border-t">
                   <button
                     onClick={() => handleEmailInquiry()}
-                    className="w-full bg-gradient-to-r from-blue-600 to-green-600 text-white py-2 px-4 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center justify-center space-x-2 text-sm"
+                    className="w-full bg-gradient-to-r from-blue-900 to-indigo-800 text-white py-2 px-4 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 flex items-center justify-center space-x-2 text-sm"
                   >
                     <Mail className="w-4 h-4" />
                     <span>Send e-post med forespørsel</span>
@@ -357,7 +357,7 @@ Mvh`);
               </div>
               <Link
                 to={`/edit-pole/${pole.id}`}
-                className="w-full bg-gradient-to-r from-blue-600 to-green-600 text-white py-3 px-4 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center justify-center space-x-2"
+                className="w-full bg-gradient-to-r from-blue-900 to-indigo-800 text-white py-3 px-4 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 flex items-center justify-center space-x-2"
               >
                 <Edit className="w-5 h-5" />
                 <span>Rediger stav</span>
@@ -381,7 +381,7 @@ Mvh`);
                 value={emailMessage}
                 onChange={(e) => setEmailMessage(e.target.value)}
                 rows={8}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                 placeholder="Skriv din melding her..."
               />
             </div>
@@ -405,7 +405,7 @@ Mvh`);
               <button
                 onClick={sendEmailInquiry}
                 disabled={isSubmitting || !emailMessage.trim()}
-                className="flex-1 bg-gradient-to-r from-blue-600 to-green-600 text-white py-2 px-4 rounded-lg font-medium hover:shadow-lg transition-all duration-200 disabled:opacity-50 flex items-center justify-center space-x-2"
+                className="flex-1 bg-gradient-to-r from-blue-900 to-indigo-800 text-white py-2 px-4 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 disabled:opacity-50 flex items-center justify-center space-x-2"
               >
                 {isSubmitting ? (
                   <span>Sender...</span>

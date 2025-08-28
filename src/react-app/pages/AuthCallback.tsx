@@ -45,7 +45,7 @@ export default function AuthCallbackPage() {
         <div className="bg-white rounded-xl shadow-xl border border-gray-100 p-8">
           {status === 'loading' && (
             <>
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900 mx-auto mb-4"></div>
               <h2 className="text-xl font-bold text-gray-900 mb-2">
                 Logger deg inn...
               </h2>
@@ -78,7 +78,7 @@ export default function AuthCallbackPage() {
               </p>
               <button
                 onClick={() => navigate('/login')}
-                className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200"
+                className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700"
               >
                 Prøv igjen
               </button>

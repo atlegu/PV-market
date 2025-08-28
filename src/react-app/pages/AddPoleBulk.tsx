@@ -164,7 +164,7 @@ export default function AddPoleBulkPage() {
           </h1>
           <button
             onClick={() => navigate('/login')}
-            className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-3 rounded-lg font-medium"
+            className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700"
           >
             Logg inn
           </button>
@@ -179,12 +179,12 @@ export default function AddPoleBulkPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
-            <ListPlus className="w-6 h-6 text-blue-600" />
+            <ListPlus className="w-6 h-6 text-blue-900" />
             <h1 className="text-2xl font-bold text-gray-900">Hurtigregistrering av staver</h1>
           </div>
           <Link
             to="/add-pole"
-            className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+            className="text-blue-900 hover:text-indigo-800 text-sm font-medium"
           >
             Bytt til standard registrering →
           </Link>
@@ -235,7 +235,7 @@ export default function AddPoleBulkPage() {
                     setMunicipality(mun);
                   }
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                 pattern="[0-9]{4}"
                 maxLength={4}
                 placeholder="0000"
@@ -371,7 +371,7 @@ export default function AddPoleBulkPage() {
           <button
             type="button"
             onClick={addRow}
-            className="mt-4 text-blue-600 hover:text-blue-700 font-medium flex items-center space-x-1"
+            className="mt-4 text-blue-900 hover:text-indigo-800 font-medium flex items-center space-x-1"
           >
             <Plus className="w-4 h-4" />
             <span>Legg til rad</span>
@@ -389,7 +389,7 @@ export default function AddPoleBulkPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+              className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
             >
               {isLoading ? (
                 <>

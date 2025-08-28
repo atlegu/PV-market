@@ -185,7 +185,7 @@ export default function EditPolePage() {
                   required
                   value={form.length_cm || ''}
                   onChange={(e) => setForm({ ...form, length_cm: Number(e.target.value) })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                   min="250"
                   max="520"
                   step="1"
@@ -200,7 +200,7 @@ export default function EditPolePage() {
                   required
                   value={form.weight_lbs || ''}
                   onChange={(e) => setForm({ ...form, weight_lbs: Number(e.target.value) })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                   min="50"
                   max="210"
                   step="1"
@@ -230,7 +230,7 @@ export default function EditPolePage() {
                   type="text"
                   value={form.flex_rating || ''}
                   onChange={(e) => setForm({ ...form, flex_rating: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                   placeholder="f.eks. Medium, 14.6"
                 />
               </div>
@@ -246,7 +246,7 @@ export default function EditPolePage() {
                   required
                   value={form.condition_rating || ''}
                   onChange={(e) => setForm({ ...form, condition_rating: Number(e.target.value) })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                 >
                   <option value="">Velg tilstand</option>
                   <option value="1">1 - Dårlig (store skader)</option>
@@ -264,7 +264,7 @@ export default function EditPolePage() {
                   type="number"
                   value={form.production_year || ''}
                   onChange={(e) => setForm({ ...form, production_year: e.target.value ? Number(e.target.value) : undefined })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                   min="1990"
                   max={new Date().getFullYear()}
                   placeholder="f.eks. 2023"
@@ -317,7 +317,7 @@ export default function EditPolePage() {
                   type="number"
                   value={form.price_weekly || ''}
                   onChange={(e) => setForm({ ...form, price_weekly: e.target.value ? Number(e.target.value) : undefined })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                   min="0"
                   placeholder="Valgfritt"
                 />
@@ -330,7 +330,7 @@ export default function EditPolePage() {
                   type="number"
                   value={form.price_sale || ''}
                   onChange={(e) => setForm({ ...form, price_sale: e.target.value ? Number(e.target.value) : undefined })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
                   min="0"
                   placeholder="Valgfritt"
                 />
@@ -374,7 +374,7 @@ export default function EditPolePage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                className="bg-gradient-to-r from-blue-900 to-indigo-800 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 hover:from-blue-800 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
               >
                 {isLoading ? (
                   <>

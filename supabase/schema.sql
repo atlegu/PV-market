@@ -88,19 +88,19 @@ CREATE POLICY "Public poles are viewable by everyone" ON poles
 
 -- Users can view their own poles regardless of status
 CREATE POLICY "Users can view own poles" ON poles
-  FOR SELECT USING (auth.uid() = owner_id);
+  FOR SELECT USING ((SELECT auth.uid()) = owner_id);
 
 -- Users can insert their own poles
 CREATE POLICY "Users can insert own poles" ON poles
-  FOR INSERT WITH CHECK (auth.uid() = owner_id);
+  FOR INSERT WITH CHECK ((SELECT auth.uid()) = owner_id);
 
 -- Users can update their own poles
 CREATE POLICY "Users can update own poles" ON poles
-  FOR UPDATE USING (auth.uid() = owner_id);
+  FOR UPDATE USING ((SELECT auth.uid()) = owner_id);
 
 -- Users can delete their own poles
 CREATE POLICY "Users can delete own poles" ON poles
-  FOR DELETE USING (auth.uid() = owner_id);
+  FOR DELETE USING ((SELECT auth.uid()) = owner_id);
 
 -- RLS Policies for user_profiles
 -- Users can view all profiles
@@ -109,38 +109,38 @@ CREATE POLICY "Profiles are viewable by everyone" ON user_profiles
 
 -- Users can insert their own profile
 CREATE POLICY "Users can insert own profile" ON user_profiles
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+  FOR INSERT WITH CHECK ((SELECT auth.uid()) = user_id);
 
 -- Users can update their own profile
 CREATE POLICY "Users can update own profile" ON user_profiles
-  FOR UPDATE USING (auth.uid() = user_id);
+  FOR UPDATE USING ((SELECT auth.uid()) = user_id);
 
 -- RLS Policies for pole_requests
 -- Users can view requests they're involved in
 CREATE POLICY "Users can view relevant requests" ON pole_requests
-  FOR SELECT USING (auth.uid() IN (requester_id, owner_id));
+  FOR SELECT USING ((SELECT auth.uid()) IN (requester_id, owner_id));
 
 -- Users can create requests
 CREATE POLICY "Users can create requests" ON pole_requests
-  FOR INSERT WITH CHECK (auth.uid() = requester_id);
+  FOR INSERT WITH CHECK ((SELECT auth.uid()) = requester_id);
 
 -- Owners can update request status
 CREATE POLICY "Owners can update requests" ON pole_requests
-  FOR UPDATE USING (auth.uid() = owner_id);
+  FOR UPDATE USING ((SELECT auth.uid()) = owner_id);
 
 -- RLS Policies for saved_searches
 -- Users can only see their own saved searches
 CREATE POLICY "Users can view own searches" ON saved_searches
-  FOR SELECT USING (auth.uid() = user_id);
+  FOR SELECT USING ((SELECT auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert own searches" ON saved_searches
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+  FOR INSERT WITH CHECK ((SELECT auth.uid()) = user_id);
 
 CREATE POLICY "Users can update own searches" ON saved_searches
-  FOR UPDATE USING (auth.uid() = user_id);
+  FOR UPDATE USING ((SELECT auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete own searches" ON saved_searches
-  FOR DELETE USING (auth.uid() = user_id);
+  FOR DELETE USING ((SELECT auth.uid()) = user_id);
 
 -- Functions for updated_at trigger
 CREATE OR REPLACE FUNCTION update_updated_at_column()
